@@ -31,11 +31,11 @@ scrapy crawl googleplay -o items.json -t json
 
 ### 附1 Python 2.7的安装方法
 
-#### http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/
+> http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/
 
-http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/
 
 ```
+
 # Python 2.7.6:
 wget http://python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz
 tar xf Python-2.7.6.tar.xz
@@ -55,6 +55,7 @@ curl https://bootstrap.pypa.io/ez_setup.py | python
 ### 附2 Python 3的安装方法
 
 ```
+
 # Python 3.3.5:
 wget http://python.org/ftp/python/3.3.5/Python-3.3.5.tar.xz
 tar xf Python-3.3.5.tar.xz
