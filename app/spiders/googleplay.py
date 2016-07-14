@@ -7,8 +7,8 @@ from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.linkextractors import LinkExtractor
 from app.items import GoogleItem
 
-class GoogleSpider(CrawlSpider):
-    name = "google"
+class GoogleplaySpider(CrawlSpider):
+    name = "googleplay"
     allowed_domains = ["play.google.com"]
     start_urls = [
         'https://play.google.com/store/apps/',
