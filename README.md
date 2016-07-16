@@ -5,6 +5,10 @@ http://doc.scrapy.org/en/latest/intro/tutorial.html
 
 ###部署文档
 
+step 1, 确认python版本 >= 2.7，文末有文档
+step 2, 安装pip
+step 3, 安装scrapy
+
 ```shell
 
 yum install -y gcc
@@ -16,6 +20,7 @@ yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel r
 yum remove python-pip -y
 
 # 安装最新版本的pip
+yum install -y easy_install
 easy_install pip
 /usr/local/bin/pip install scrapy pysqlite
 
