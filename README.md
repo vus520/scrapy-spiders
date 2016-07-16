@@ -17,7 +17,7 @@ yum remove python-pip -y
 
 # 安装最新版本的pip
 easy_install pip
-/usr/local/bin/pip install scrapy scrapy-mongodb pysqlite
+/usr/local/bin/pip install scrapy pysqlite
 
 ```
 
@@ -46,7 +46,7 @@ make && make altinstall
 # 解决python 只支持2.6及以下版本的问题
 sed -i '1s/^.*$/#!\/usr\/bin\/python2x/' /usr/bin/yum
 mv /usr/bin/python /usr/bin/python2x
-ln -s /usr/local/bin/python3.3 /usr/bin/python
+ln -s /usr/local/bin/python2.7 /usr/bin/python
 
 curl https://bootstrap.pypa.io/ez_setup.py | python
 
@@ -66,7 +66,7 @@ make && make altinstall
 # 解决python 只支持2.6及以下版本的问题
 sed -i '1s/^.*$/#!\/usr\/bin\/python2x/' /usr/bin/yum
 mv /usr/bin/python /usr/bin/python2x
-ln -s /usr/local/bin/python2.7 /usr/bin/python
+ln -s /usr/local/bin/python3.3 /usr/bin/python
 
 curl https://bootstrap.pypa.io/ez_setup.py | python
 ```
