@@ -49,7 +49,7 @@ cd Python-2.7.6
 make && make altinstall
 
 # 解决python 只支持2.6及以下版本的问题
-sed -i '1s/^.*$/#!\/usr\/bin\/python2x/' /usr/bin/yum
+sed -i '1s/^.*$/#!\/usr\/bin\/python2.6/' /usr/bin/yum
 mv /usr/bin/python /usr/bin/python2x
 ln -s /usr/local/bin/python2.7 /usr/bin/python
 
@@ -69,7 +69,7 @@ cd Python-3.3.5
 make && make altinstall
 
 # 解决python 只支持2.6及以下版本的问题
-sed -i '1s/^.*$/#!\/usr\/bin\/python2x/' /usr/bin/yum
+sed -i '1s/^.*$/#!\/usr\/bin\/python2.6/' /usr/bin/yum
 mv /usr/bin/python /usr/bin/python2x
 ln -s /usr/local/bin/python3.3 /usr/bin/python
 
