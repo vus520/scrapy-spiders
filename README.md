@@ -34,6 +34,17 @@ scrapy crawl googleplay -o items.json -t json
 
 ```
 
+### supervisor 守护
+
+```
+pip install supervisor
+echo_supervisord_conf > /etc/supervisord.conf
+cat supervisor.conf >> /etc/supervisord.conf
+
+supervisord -c /etc/supervisord.conf
+supervisorctl start gp
+```
+
 ### 附1 Python 2.7的安装方法
 
 > http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/
