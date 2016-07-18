@@ -23,8 +23,7 @@ ROBOTSTXT_OBEY = True
 
 # 保存到文件配置
 ITEM_PIPELINES = {
-    'app.pipelines.GoogleplayPipeline': 100,
-    'scrapy_redis.pipelines.RedisPipeline': 300
+    'app.pipelines.GoogleplayPipeline': 100
 }
 
 # Enables scheduling storing requests queue in redis.

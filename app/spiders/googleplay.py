@@ -12,7 +12,18 @@ class GoogleplaySpider(CrawlSpider):
     allowed_domains = ["play.google.com"]
     start_urls = [
         'https://play.google.com/store/apps/',
-        'https://play.google.com/store/apps/details?id=com.viber.voip'
+        'https://play.google.com/store/apps/category/TRAVEL_AND_LOCAL'
+        'https://play.google.com/store/apps/category/APP_WALLPAPER'
+        'https://play.google.com/store/apps/category/PERSONALIZATION'
+        'https://play.google.com/store/apps/category/TOOLS'
+        'https://play.google.com/store/apps/category/BUSINESS'
+        'https://play.google.com/store/apps/category/SHOPPING'
+        'https://play.google.com/store/apps/category/HEALTH_AND_FITNESS'
+        'https://play.google.com/store/apps/category/TRANSPORTATION'
+        'https://play.google.com/store/apps/category/EDUCATION'
+        'https://play.google.com/store/apps/category/COMICS'
+        'https://play.google.com/store/apps/category/MEDIA_AND_VIDEO'
+        'https://play.google.com/store/apps/category/LIBRARIES_AND_DEMO'
     ]
     rules = [
         Rule(LinkExtractor(allow=("https://play\.google\.com/store/apps/details\?id=[\w\.]+$", )), callback='parse_app', follow=True),

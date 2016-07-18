@@ -11,11 +11,12 @@ from app.items import GoogleItem
 class RedisSpider(RedisSpider):
     name = "redis"
 
+    allowed_domains = ["play.google.com"]
     rules = [
-        Rule(LinkExtractor(allow=("https://play\.google\.com/store/apps/details\?id=[\w\.]+$", )), callback='parse_app', follow=True),
-    ] # CrawlSpider 会根据 rules 规则爬取页面并调用函数进行处理
+        Rule(LinkExtractor(allow=("https://play\.google\.com/store/apps/details\?id=[\w\.]+$", )), callback='parse', follow=True),
+    ]
 
-    def parse_app(self, response):
+    def parse(self, response):
         item = GoogleItem()
         item['url']    = response.url
         item['num']    = response.xpath("//div[@itemprop='numDownloads']").xpath("text()").extract()
@@ -38,7 +39,7 @@ class RedisSpider(RedisSpider):
         urls = response.xpath('//a').xpath("@href").re('store/apps/details\?id=([\w\.]+)')
         urls = set(urls)
         for pkg in urls:
-            yield scrapy.Request("https://play.google.com/store/apps/details?id=%s" % pkg, callback=self.parse_app)
+            yield scrapy.Request("https://play.google.com/store/apps/details?id=%s" % pkg, callback=self.parse)
 
         yield item
 
