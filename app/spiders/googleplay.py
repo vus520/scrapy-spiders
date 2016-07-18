@@ -28,7 +28,7 @@ class GoogleplaySpider(CrawlSpider):
         item['desc']   = "\n".join(item['desc'])
         item['score']  = response.xpath("//div[@class='score']").xpath("text()").extract()
         item['meta']   = response.xpath("//meta[@name='description']").xpath("@content").extract()
-        item['id']     = response.xpath("/html").re(u'data-docid="(.*?)"')[0]
+        item['pkg']    = response.xpath("/html").re(u'data-docid="(.*?)"')[0]
         item['info']   = response.xpath("//div").re(u'<div class="title">([^<]+)</div>\s*?<div class="content">([^<]+)</div>')
         yield item
 

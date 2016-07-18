@@ -22,4 +22,4 @@ class GoogleItem(scrapy.Item):
     meta = scrapy.Field()
     info = scrapy.Field()
     score = scrapy.Field()
-    
+    pkg = scrapy.Field()
