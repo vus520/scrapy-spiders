@@ -23,8 +23,15 @@ ROBOTSTXT_OBEY = True
 
 # 保存到文件配置
 ITEM_PIPELINES = {
-    'app.pipelines.GoogleplayPipeline': 800,
+    'app.pipelines.GoogleplayPipeline': 100,
+    'scrapy_redis.pipelines.RedisPipeline': 300
 }
+
+# Enables scheduling storing requests queue in redis.
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+
+# Ensure all spiders share same duplicates filter through redis.
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
