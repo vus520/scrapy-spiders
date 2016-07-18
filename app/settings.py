@@ -21,6 +21,11 @@ NEWSPIDER_MODULE = 'app.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+# 保存到文件配置
+ITEM_PIPELINES = {
+    'app.pipelines.GoogleplayPipeline': 800,
+}
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
