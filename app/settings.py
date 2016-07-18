@@ -14,6 +14,7 @@ BOT_NAME = 'app'
 SPIDER_MODULES = ['app.spiders']
 NEWSPIDER_MODULE = 'app.spiders'
 
+REDIS_HOST = '128.199.163.227'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'app (+http://www.yourdomain.com)'
