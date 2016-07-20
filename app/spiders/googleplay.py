@@ -32,6 +32,7 @@ class GoogleplaySpider(CrawlSpider):
     def parse_app(self, response):
         item = GoogleItem()
         item['url']    = response.url
+        item['title']    = response.xpath("//div[@class='id-app-title']").xpath("text()").extract()
         item['num']    = response.xpath("//div[@itemprop='numDownloads']").xpath("text()").extract()
         item['cate']   = response.xpath("//span[@itemprop='genre']").xpath("text()").extract()
         item['rate']   = response.xpath("//div[@itemprop='contentRating']").xpath("text()").extract()
