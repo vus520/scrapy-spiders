@@ -2,37 +2,24 @@
 
 import scrapy, io, json
 
+from scrapy_redis.spiders import RedisSpider
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.linkextractors import LinkExtractor
 from app.items import GoogleItem
 
-class GoogleplaySpider(CrawlSpider):
-    name = "googleplay"
-    allowed_domains = ["play.google.com"]
-    start_urls = [
-        'https://play.google.com/store/apps/',
-        'https://play.google.com/store/apps/category/TRAVEL_AND_LOCAL'
-        'https://play.google.com/store/apps/category/APP_WALLPAPER'
-        'https://play.google.com/store/apps/category/PERSONALIZATION'
-        'https://play.google.com/store/apps/category/TOOLS'
-        'https://play.google.com/store/apps/category/BUSINESS'
-        'https://play.google.com/store/apps/category/SHOPPING'
-        'https://play.google.com/store/apps/category/HEALTH_AND_FITNESS'
-        'https://play.google.com/store/apps/category/TRANSPORTATION'
-        'https://play.google.com/store/apps/category/EDUCATION'
-        'https://play.google.com/store/apps/category/COMICS'
-        'https://play.google.com/store/apps/category/MEDIA_AND_VIDEO'
-        'https://play.google.com/store/apps/category/LIBRARIES_AND_DEMO'
-    ]
-    rules = [
-        Rule(LinkExtractor(allow=("https://play\.google\.com/store/apps/details\?id=[\w\.]+$", )), callback='parse_app', follow=True),
-    ] # CrawlSpider 会根据 rules 规则爬取页面并调用函数进行处理
+class RedisSpider(RedisSpider):
+    name = "redis"
 
-    def parse_app(self, response):
+    allowed_domains = ["play.google.com"]
+    rules = [
+        Rule(LinkExtractor(allow=("https://play\.google\.com/store/apps/details\?id=[\w\.]+$", )), callback='parse', follow=True),
+    ]
+
+    def parse(self, response):
         item = GoogleItem()
         item['url']    = response.url
-        item['title']    = response.xpath("//div[@class='id-app-title']").xpath("text()").extract()
+        item['title']  = response.xpath("//div[@class='id-app-title']").xpath("text()").extract()
         item['num']    = response.xpath("//div[@itemprop='numDownloads']").xpath("text()").extract()
         item['cate']   = response.xpath("//span[@itemprop='genre']").xpath("text()").extract()
         item['rate']   = response.xpath("//div[@itemprop='contentRating']").xpath("text()").extract()
@@ -53,7 +40,7 @@ class GoogleplaySpider(CrawlSpider):
         urls = response.xpath('//a').xpath("@href").re('store/apps/details\?id=([\w\.]+)')
         urls = set(urls)
         for pkg in urls:
-            yield scrapy.Request("https://play.google.com/store/apps/details?id=%s" % pkg, callback=self.parse_app)
+            yield scrapy.Request("https://play.google.com/store/apps/details?id=%s" % pkg, callback=self.parse)
 
         yield item
 
