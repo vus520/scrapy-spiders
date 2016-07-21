@@ -14,6 +14,7 @@ class AppItem(scrapy.Item):
     pass
 
 class GoogleItem(scrapy.Item):
+    title = scrapy.Field()
     url = scrapy.Field()
     num = scrapy.Field()
     cate = scrapy.Field()

@@ -12,17 +12,21 @@ step 3, 安装scrapy
 ```shell
 
 yum install -y gcc
-yum install -y libxslt-devel libxml2-devel sqlite-devel
+yum install -y libxslt-devel libxml2-devel sqlite-devel python-devel
 
 yum groupinstall -y "Development tools"
-yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel ibffi-devel
 
 yum remove python-pip -y
 
 # 安装最新版本的pip
 yum install -y easy_install
+#wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+
 easy_install pip
-/usr/local/bin/pip install scrapy pysqlite
+#/usr/local/bin/easy_install pip
+
+/usr/local/bin/pip install scrapy scrapy-redis pysqlite --upgrade
 
 ```
 
@@ -30,9 +34,21 @@ easy_install pip
 
 ```shell
 
+#保存为文件
 scrapy crawl googleplay -o items.json -t json
 
 ```
+
+### 通过Redis分布式抓取
+
+```shell
+
+#先添加一个redis项目的入口
+redis-cli lpush redis:start_urls 'https://play.google.com/store/apps/category/FAMILY_BR
+scrapy crawl googleplay 
+
+```
+
 
 ### supervisor 守护
 
