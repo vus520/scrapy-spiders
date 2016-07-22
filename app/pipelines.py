@@ -20,7 +20,7 @@ class GoogleplayPipeline(object):
 
     def process_item(self, item, spider):
         line = json.dumps(dict(item))
-        line = line.replace("\r", "").replace("\n", "").replace("\t", "")
+        line = line.replace("\r", "").replace("\n", "").replace("\t", "").replace("'", "")
         line = line + "\n"
         line = line.decode('unicode_escape')
         self.file.write(line)
