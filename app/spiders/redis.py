@@ -20,13 +20,17 @@ class RedisSpider(RedisSpider):
         item = GoogleItem()
         item['url']    = response.url
         item['title']  = response.xpath("//div[@class='id-app-title']").xpath("text()").extract()
+        item['title']  = ''.join(item['title']).replace('\n', '').replace('\r', '').replace('\t', '')
         item['num']    = response.xpath("//div[@itemprop='numDownloads']").xpath("text()").extract()
         item['cate']   = response.xpath("//span[@itemprop='genre']").xpath("text()").extract()
+        item['cate']   = ''.join(item['cate']).replace(' ', '').replace('\n', '').replace('\r', '').replace('\t', '')
         item['rate']   = response.xpath("//div[@itemprop='contentRating']").xpath("text()").extract()
+        item['rate']  = ''.join(item['rate']).replace('\n', '').replace('\r', '').replace('\t', '')
         item['desc']   = response.xpath("//div[@class='description']").xpath("text()").extract()
-        item['desc']   = "\n".join(item['desc'])
+        item['desc']   = ''.join(item['desc']).replace(' ', '').replace('\n', '').replace('\r', '').replace('\t', '')
         item['score']  = response.xpath("//div[@class='score']").xpath("text()").extract()
         item['meta']   = response.xpath("//meta[@name='description']").xpath("@content").extract()
+        item['meta']   = ''.join(item['meta']).replace(' ', '').replace('\n', '').replace('\r', '').replace('\t', '')
         item['pkg']    = response.xpath("/html").re(u'data-docid="(.*?)"')[0]
 
         item['info'] = dict()
@@ -34,7 +38,29 @@ class RedisSpider(RedisSpider):
         content = response.css('.details-section.metadata').css(".content::text").extract()
 
         for i, t in enumerate(title):
-            item['info'][t.strip()] = content[i].strip()
+            key = ''.join(t.strip()).replace('\t', '').replace('\r', '').replace('\n', '').replace(' ', '')
+            value = ''.join(content[i].strip()).replace('\t', '').replace('\r', '').replace('\n', '')
+            # item['info'][key] = value
+            if key == '安装次数'.decode('utf-8'):
+                item['info']['install_num'] = value
+            elif key == '内容分级'.decode('utf-8'):
+                item['info']['content_level'] = value
+            elif key == '大小'.decode('utf-8'):
+                item['info']['size'] = value
+            elif key == '提供者：'.decode('utf-8'):
+                item['info']['provider'] = value
+            elif key == 'Android系统版本要求'.decode('utf-8'):
+                item['info']['android_level_requirement'] = value
+            elif key == '当前版本'.decode('utf-8'):
+                item['info']['current_version'] = value
+            elif key == '开发者'.decode('utf-8'):
+                item['info']['developer'] = value
+            elif key == '更新日期'.decode('utf-8'):
+                item['info']['update_time'] = value
+            elif key == '权限'.decode('utf-8'):
+                item['info']['auth'] = value
+            elif key == '举报'.decode('utf-8'):
+                item['info']['report'] = value
 
         #发现相关应用，并将url替换成唯一url
         urls = response.xpath('//a').xpath("@href").re('store/apps/details\?id=([\w\.]+)')
