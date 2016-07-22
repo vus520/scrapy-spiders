@@ -65,6 +65,9 @@ class WandoujiaSpider(RedisSpider):
         item['num']    = response.xpath("/html").re(u'UserDownloads:(\d+)')
         item['rate']   = response.xpath("/html").re(u'data-like="(\d+)"')
 
+        item['desc']   = response.css('div.con[itemprop=description]::text').extract()
+        item['desc']   = "\n".join(item['desc']).strip().replace(" ", "").replace("\n", "")
+
         item['cate']   = response.xpath("//dd[@class='tag-box']").css("a::text").extract()
         item['cate']   = map(unicode.strip, item['cate'])
 
