@@ -10,7 +10,6 @@ from scrapy.selector import Selector
 from app.items import GoogleItem
 
 class WandoujiaSpider(RedisSpider):
-#class GoogleplaySpider(CrawlSpider):
     name = "xiaomi"
 
     start_urls = [
@@ -21,15 +20,16 @@ class WandoujiaSpider(RedisSpider):
     rules = []
 
     def parse(self, response):
-        urls = response.xpath('//a').xpath("@href").re('category/[\d_]+$')
+        urls = response.xpath('//a').xpath("@href").re('category/([\d_]+)$')
         urls = set(urls)
-        for pkg in urls:
-            yield scrapy.Request("http://app.xiaomi.com/%s" % pkg, callback=self.parse)
+        for cid in urls:
+            for page in range(0, 10):
+                yield scrapy.Request("http://app.xiaomi.com/categotyAllListApi?page=%s&categoryId=%s&pageSize=2000" % (page, cid), callback=self.parse)
 
-        urls = response.xpath('//a').xpath("@href").re('/details\?id=([a-z]+\.[\w\.]+)')
-        urls = set(urls)
-        for pkg in urls:
-            yield scrapy.Request("http://app.xiaomi.com/details?id=%s" % pkg, callback=self.parse_app)
+        if response.body[0] == u"{":
+            data = json.loads(response.body)
+            for row in data['data']:
+                yield scrapy.Request("http://app.xiaomi.com/details?id=%s" % row['packageName'], callback=self.parse_app)
 
     def parse_app(self, response):
         item = GoogleItem()
