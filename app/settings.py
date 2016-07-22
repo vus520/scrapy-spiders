@@ -14,9 +14,10 @@ BOT_NAME = 'app'
 SPIDER_MODULES = ['app.spiders']
 NEWSPIDER_MODULE = 'app.spiders'
 
+#REDIS_HOST = '127.0.0.1'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'app (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
