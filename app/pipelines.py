@@ -8,17 +8,20 @@
 import json
 import codecs
 
+
 class AppPipeline(object):
     def process_item(self, item, spider):
         return item
 
-class GoogleplayPipeline(object):
 
+class GoogleplayPipeline(object):
     def __init__(self):
         self.file = codecs.open('apps.json', 'w', encoding='utf-8')
 
     def process_item(self, item, spider):
         line = json.dumps(dict(item))
-        line = line.replace("\\n", "") + "\n"
-        self.file.write(line.decode('unicode_escape'))
+        line = line.replace("\r", "").replace("\n", "").replace("\t", "")
+        line = line + "\n"
+        line = line.decode('unicode_escape')
+        self.file.write(line)
         return item
