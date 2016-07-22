@@ -15,10 +15,14 @@ class AppPipeline(object):
 class GoogleplayPipeline(object):
 
     def __init__(self):
-        self.file = codecs.open('apps.json', 'w', encoding='utf-8')
+        self.file = ''
 
     def process_item(self, item, spider):
         line = json.dumps(dict(item))
         line = line.replace("\\n", "") + "\n"
+
+        if not self.file:
+        	self.file = codecs.open(spider.name + '-apps.json', 'w', encoding='utf-8')
+
         self.file.write(line.decode('unicode_escape'))
         return item
