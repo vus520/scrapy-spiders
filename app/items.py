@@ -25,3 +25,6 @@ class GoogleItem(scrapy.Item):
     score = scrapy.Field()
     pkg = scrapy.Field()
     tag = scrapy.Field()
+    local = scrapy.Field()
+    vcode = scrapy.Field()
+    date = scrapy.Field()
